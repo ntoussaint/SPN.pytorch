@@ -7,7 +7,6 @@ from copy import deepcopy
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
-from torch.autograd import Variable
 from urllib.request import urlretrieve
 
 import experiment.models as models
@@ -201,7 +200,7 @@ def load_image_voc(image_name):
     image_normalized = torch.from_numpy(np.array(image_raw)).permute(2, 0, 1).cuda().float()
     image_normalized = image_normalized.index_select(0, torch.LongTensor([2,1,0]).cuda())   
     image_normalized = (image_normalized - torch.Tensor([103.939, 116.779, 123.68]).cuda().view(3, 1, 1))
-    input_var = Variable(image_normalized.unsqueeze(0), volatile=True)
+    input_var = image_normalized.unsqueeze(0)
     return image_raw, input_var
 
 def load_image_imagenet(image_name, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]):
@@ -209,7 +208,7 @@ def load_image_imagenet(image_name, mean=[0.485, 0.456, 0.406], std=[0.229, 0.22
     image_normalized = torch.from_numpy(np.array(image_raw)).permute(2, 0, 1).cuda().float() / 255.0
     image_normalized = (image_normalized - torch.Tensor(mean).cuda().view(3, 1, 1)) \
         / torch.Tensor(std).cuda().view(3, 1, 1)
-    input_var = Variable(image_normalized.unsqueeze(0), volatile=True)
+    input_var = image_normalized.unsqueeze(0)
     return image_raw, input_var
 
 def load_model_voc(model_path, multiscale=False, scale=224):

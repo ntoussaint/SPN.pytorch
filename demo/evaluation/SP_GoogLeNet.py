@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F 
-from torch.autograd import Function, Variable
+from torch.autograd import Function
 from torch.utils.serialization import load_lua
 from spn import SoftProposal, SpatialSumOverMap, hook_spn, unhook_spn
 

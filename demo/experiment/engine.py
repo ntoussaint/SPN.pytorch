@@ -72,12 +72,12 @@ class Engine(object):
     def on_end_batch(self, training, model, criterion, data_loader, optimizer=None):
 
         # record loss
-        self.state['loss_batch'] = self.state['loss'].data[0]
+        self.state['loss_batch'] = self.state['loss'].item()
         self.state['meter_loss'].add(self.state['loss_batch'])
 
     def on_forward(self, training, model, criterion, data_loader, optimizer=None):
-        input_var = torch.autograd.Variable(self.state['input'])
-        target_var = torch.autograd.Variable(self.state['target'])
+        input_var = self.state['input']
+        target_var = self.state['target']
 
         if not training:
             input_var.volatile = True
