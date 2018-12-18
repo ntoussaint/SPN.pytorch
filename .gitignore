@@ -1,0 +1,19 @@
+
+# PyCharm
+.idea/
+
+# Data directories
+data/
+
+# build files
+__pycache__/
+.eggs/
+build/
+dist/
+*.egg-info/
+_ext/
+*.cu.o
+*.pyc
+
+# log files
+logs/
