@@ -36,13 +36,13 @@ int cuspn_(SP_Generate)(
     const float tolerance,
     const uint32 maxIteration)
 {
-    uint8 ndim = input->nDimension;
+    uint8 ndim = THCudaTensor_nDimension(state, input);
     THArgCheck(ndim == 4, 1, "only supports batch mode.");
 
-    const uint16 nBatch = input->size[0];
-    const uint16 nChannel = input->size[1];
-    const uint16 mW = input->size[2];
-    const uint16 mH = input->size[3];
+    const uint16 nBatch = THCudaTensor_size(state, input, 0);
+    const uint16 nChannel = THCudaTensor_size(state, input, 1);
+    const uint16 mW = THCudaTensor_size(state, input, 2);
+    const uint16 mH = THCudaTensor_size(state, input, 3);
     const uint16 N = mW * mH;
     const uint32 nEntry = nChannel * N;
 
@@ -144,15 +144,15 @@ int cuspn_(SP_Couple)(
     THCTensor *proposal,
     THCTensor *output)
 {
-    uint8 ndim = input->nDimension;
+    uint8 ndim = THCudaTensor_nDimension(state, input);
     THArgCheck(ndim == 4, 1, "only supports batch mode.");
     
     THCUNN_assertSameGPU(state, 3, input, proposal, output);
 
-    const uint16 nBatch = input->size[0];
-    const uint16 nChannel = input->size[1];
-    const uint16 mW = input->size[2];
-    const uint16 mH = input->size[3];
+    const uint16 nBatch = THCudaTensor_size(state, input, 0);
+    const uint16 nChannel = THCudaTensor_size(state, input, 1);
+    const uint16 mW = THCudaTensor_size(state, input, 2);
+    const uint16 mH = THCudaTensor_size(state, input, 3);
     const uint16 N = mW * mH;
 
     real *input_data = THCTensor_(data)(state, input);
