@@ -1,6 +1,6 @@
 import os
 import torch
-from torch.utils.ffi import create_extension
+from torch.utils.cpp_extension import BuildExtension, CppExtension
 
 this_file = os.path.dirname(__file__)
 
@@ -19,7 +19,7 @@ if torch.cuda.is_available():
     with_cuda = True
 
 ffi = create_extension(
-    'spn._ext.libspn',
+    'spn_ext.libspn',
     package=True,
     headers=headers,
     sources=sources,

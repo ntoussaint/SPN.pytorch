@@ -2,11 +2,11 @@
 #ifdef _OPENMP
 #include <omp.h>
 #endif
-#include "libspn.h"
+#include "libspn_cpu.h"
 
 #define torch_(NAME) TH_CONCAT_3(torch_, Real, NAME)
 #define torch_Tensor TH_CONCAT_STRING_3(torch., Real, Tensor)
 #define spn_(NAME) TH_CONCAT_4(spn_, Real, _, NAME)
 
-#include "generic/SoftProposalGenerator.c"
+#include "SoftProposalGenerator.cpp"
 #include "THGenerateFloatTypes.h"

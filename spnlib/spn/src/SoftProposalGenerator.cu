@@ -1,5 +1,5 @@
 #ifndef THC_GENERIC_FILE
-#define THC_GENERIC_FILE "generic/SoftProposalGenerator.cu"
+#define THC_GENERIC_FILE "SoftProposalGenerator.cu"
 #else
 
 int cuspn_(SP_InitDistanceMetric)(
@@ -12,7 +12,7 @@ int cuspn_(SP_InitDistanceMetric)(
     const uint32 count = N * N;
 
     THCTensor_(resize2d)(state, distanceMetric, N, N);
-    real *distanceMetric_data = THCTensor_(data)(state, distanceMetric);
+    auto *distanceMetric_data = THCTensor_(data)(state, distanceMetric);
 
     kernel_(InitDistanceMetric)(
         THCState_getCurrentStream(state), 
@@ -52,15 +52,15 @@ int cuspn_(SP_Generate)(
     THCTensor_(resize2d)(state, proposalBuffer, mW, mH);
 
     // (nBatch, nChannel, mH, mW)
-    real *input_data = THCTensor_(data)(state, input);
+    auto *input_data = THCTensor_(data)(state, input);
     // (mH*mW, mH*mW)
-    real *distanceMetric_data = THCTensor_(data)(state, distanceMetric);
+    auto *distanceMetric_data = THCTensor_(data)(state, distanceMetric);
     // (mH*mW, mH*mW)
-    real *transferMatrix_data = THCTensor_(data)(state, transferMatrix);
+    auto *transferMatrix_data = THCTensor_(data)(state, transferMatrix);
     // (nBatch, mH, mW)
-    real *proposal_data = THCTensor_(data)(state, proposal);
+    auto *proposal_data = THCTensor_(data)(state, proposal);
     // (mH, mW)
-    real *proposalBuffer_data = THCTensor_(data)(state, proposalBuffer);
+    auto *proposalBuffer_data = THCTensor_(data)(state, proposalBuffer);
 
     const float avg = 1.0f / N;
     float sumOver;
@@ -155,10 +155,10 @@ int cuspn_(SP_Couple)(
     const uint16 mH = THCudaTensor_size(state, input, 3);
     const uint16 N = mW * mH;
 
-    real *input_data = THCTensor_(data)(state, input);
+    auto *input_data = THCTensor_(data)(state, input);
     // (nBatch, mH, mW)
-    real *proposal_data = THCTensor_(data)(state, proposal);
-    real *output_data = THCTensor_(data)(state, output);
+    auto *proposal_data = THCTensor_(data)(state, proposal);
+    auto *output_data = THCTensor_(data)(state, output);
 
     const uint32 count = nBatch * nChannel * N;
 

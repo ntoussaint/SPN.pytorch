@@ -1,5 +1,5 @@
 #ifndef TH_GENERIC_FILE
-#define TH_GENERIC_FILE "generic/SoftProposalGenerator.c"
+#define TH_GENERIC_FILE "SoftProposalGenerator.cpp"
 #else
 
 int spn_(SP_InitDistanceMetric)(

@@ -1,4 +1,8 @@
+#include <ATen/ATen.h>
+#include <ATen/cuda/CUDAContext.h>
+
 #include <THC/THC.h>
+
 #include "libspn_kernel.h"
 #include "libspn_cuda.h"
 
@@ -10,8 +14,8 @@
 // this symbol will be resolved automatically from PyTorch libs
 extern THCState *state;
 
-#include "generic/SoftProposalGenerator.cu"
+#include "SoftProposalGenerator.cu"
 #include <THC/THCGenerateFloatType.h>
 
-#include "generic/SoftProposalGenerator.cu"
-#include <THC/THCGenerateDoubleType.h>
+// #include "SoftProposalGenerator.cu"
+// #include <THC/THCGenerateDoubleType.h>
